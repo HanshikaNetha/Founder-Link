@@ -1,0 +1,94 @@
+<div id="dashboard">
+
+  <!-- Header -->
+  <div class="welcome-header">
+    <div>
+      <h2>Messages 💬</h2>
+      <p>Communicate with your team</p>
+    </div>
+  </div>
+
+  <!-- Main Grid -->
+  <div class="dashboard-grid">
+
+    <!-- 🔵 Create Conversation -->
+    <div class="card">
+      <h3>Create Conversation</h3>
+
+      <div class="inner-card">
+        <input
+            type="number"
+            [(ngModel)]="userId"
+            placeholder="Enter User ID"
+        />
+
+        <button (click)="createConversation()">
+            Create
+        </button>
+      </div>
+      <div *ngIf="createdConversationId !== null" class="result">
+        Conversation ID: <b>{{ createdConversationId }}</b>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Send Message</h3>
+
+      <div class="inner-card">
+        <div id="inputs">
+            <input
+                type="number"
+                [(ngModel)]="sendConversationId"
+                placeholder="Conversation ID"
+            />
+
+            <input
+                type="text"
+                [(ngModel)]="messageContent"
+                placeholder="Type message..."
+            />
+
+        </div>
+
+        <button (click)="sendMessage()">
+            Send
+        </button>
+      </div>
+    </div>
+
+    <!-- 🟡 View Messages -->
+    <div class="card full-width">
+      <h3>View Messages</h3>
+
+      <div class="inner-card">
+        <div class="input-row">
+            <input
+            type="number"
+            [(ngModel)]="fetchConversationId"
+            placeholder="Conversation ID"
+            />
+
+            
+        </div>
+        <button (click)="loadMessages()">Load</button>
+      </div>
+
+      <div class="messages-list">
+        <div *ngFor="let m of messages" class="message-item">
+          <div class="msg-content">User {{ m.senderId }}: {{ m.content }}</div>
+          <div class="msg-time">
+            {{ m.sentAt | date:'short' }}
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Popup -->
+<div *ngIf="showPopup" class="popup">
+  {{ popupMessage }}
+</div>

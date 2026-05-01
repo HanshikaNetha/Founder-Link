@@ -1,0 +1,102 @@
+.navbar {
+  height: 60px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+  position: fixed;
+  left: 220px;
+  right: 0;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.brand {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* Right section */
+.right {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/* Profile */
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-md);
+  transition: all var(--transition);
+}
+
+.profile:hover {
+  background: var(--bg-hover);
+}
+
+/* Avatar */
+.avatar {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: white;
+  font-size: 0.875rem;
+}
+
+/* Name */
+.name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.role {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Dropdown */
+.dropdown {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  padding: 0.5rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+  min-width: 140px;
+}
+
+/* Logout button */
+.logout-btn {
+  background: var(--danger-bg);
+  border: 1px solid rgba(239,68,68,0.15);
+  padding: 0.5rem 1rem;
+  color: var(--danger);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  width: 100%;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all var(--transition);
+}
+
+.logout-btn:hover {
+  background: var(--danger);
+  color: white;
+}

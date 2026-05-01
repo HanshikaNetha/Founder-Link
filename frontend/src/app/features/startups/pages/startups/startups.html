@@ -1,0 +1,182 @@
+<div class="container">
+
+  <div class="header">
+    <h2>Startups</h2>
+    <p>Explore all startups</p>
+  </div>
+
+  <!-- Search -->
+  <div class="search-bar">
+    <input 
+      type="text"
+      placeholder="Search startups..."
+      [(ngModel)]="searchText" 
+    />
+  </div>
+
+  <div class="tabs">
+
+    <button 
+        [class.active]="activeTab === 'ALL'"
+        (click)="setTab('ALL')">All</button>
+
+    <button 
+        [class.active]="activeTab === 'PENDING'"
+        (click)="setTab('PENDING')">Pending</button>
+
+    <button 
+        [class.active]="activeTab === 'APPROVED'"
+        (click)="setTab('APPROVED')">Approved</button>
+
+    <button 
+        [class.active]="activeTab === 'REJECTED'"
+        (click)="setTab('REJECTED')">Rejected</button>
+
+    </div>
+
+  <!-- List -->
+  <div class="list">
+
+    <div *ngIf="filteredStartups && filteredStartups.length === 0">
+      No startups found
+    </div>
+
+    <div 
+      class="card"
+      *ngFor="let s of paginatedStartups || []"
+    >
+      <div class="name">{{ s.startupName }}</div>
+      <div class="id">id:{{s.startupId}}</div>
+      <div class="industry">{{ s.industry }}</div>
+      <div class="desc">{{ s.description }}</div>
+      <div class="card-footer">
+        <div 
+          class="status"
+          [ngClass]="s.approvalStatus?.toLowerCase()"
+        >
+          {{ s.approvalStatus }}
+        </div>
+        <button 
+          class="investments-btn"
+          *ngIf="s.founderId === tokenService.getUser()?.userId"
+          (click)="openInvestmentsModal(s.startupId)"
+        >
+          Investments
+        </button>
+
+      </div>
+    </div>
+
+    <div class="pagination" *ngIf="pages.length > 1">
+
+      <!-- Prev -->
+      <button 
+        (click)="prevPage()" 
+        [disabled]="currentPage === 0">
+        Prev
+      </button>
+
+      <!-- Page Numbers -->
+      <span 
+        *ngFor="let page of pages"
+        (click)="goToPage(page)"
+        [class.active]="page === currentPage"
+        class="page-number"
+      >
+        {{ page + 1 }}
+      </span>
+
+      <!-- Next -->
+      <button 
+        (click)="nextPage()" 
+        [disabled]="currentPage === pages.length - 1">
+        Next
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-backdrop" *ngIf="showInvestmentsModal">
+
+  <div class="modal-card">
+
+    <!-- Header -->
+    <div class="modal-header">
+      <h3>Startup Investments</h3>
+      <button class="close-btn" (click)="closeInvestmentsModal()">✖</button>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="loadingInvestments" class="loading">
+      Loading...
+    </div>
+
+    <!-- Content -->
+    <ng-container *ngIf="!loadingInvestments">
+
+      <!-- Empty -->
+      <div *ngIf="(startupInvestments?.length ?? 0) === 0">
+        No investments yet
+      </div>
+
+      <!-- Cards -->
+      <div 
+        class="investment-card"
+        *ngFor="let inv of startupInvestments || []"
+      >
+
+        <div class="investment-left">
+          <div class="investor">Investor: {{ inv.investorId }}</div>
+          <div class="amount">₹ {{ inv.amount }}</div>
+        </div>
+
+        <div class="investment-right">
+
+          <div 
+            class="startup-status"
+            [ngClass]="inv.status?.toLowerCase()"
+          >
+            {{ inv.status }}
+            
+          </div>
+          <br>
+          <br>
+          
+
+          <div 
+            class="actions" 
+            *ngIf="inv.status?.toUpperCase() === 'PENDING'"
+          >
+            <button 
+              class="approve-btn"
+              (click)="approve(inv.investmentId)"
+              [disabled]="processingId === inv.investmentId"
+            >
+              Approve
+            </button>
+
+            <button 
+              class="reject-btn"
+              (click)="reject(inv.investmentId)"
+              [disabled]="processingId === inv.investmentId"
+            >
+              Reject
+            </button>
+            <br>
+            <br>
+            <br>
+          </div>
+
+        </div>
+
+      </div>
+
+    </ng-container>
+
+  </div>
+
+</div>

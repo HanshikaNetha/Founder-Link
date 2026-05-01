@@ -1,0 +1,34 @@
+<header class="navbar">
+
+  <!-- Left -->
+  <div class="left">
+    <h2 class="brand">FounderLink</h2>
+  </div>
+
+  <!-- Right -->
+  <div class="right">
+
+    <!-- Profile -->
+    <div class="profile" (click)="toggleProfile()">
+
+      <div class="avatar">{{ userInitial() }}</div>
+
+      <div class="info">
+        <div class="name">{{ userName() }}</div>
+        <div class="role">{{ userRole() }}</div>
+      </div>
+
+    </div>
+
+    <!-- Dropdown -->
+    <div class="dropdown" *ngIf="showProfile">
+
+      <button (click)="onLogout()" class="logout-btn">
+        Logout
+      </button>
+
+    </div>
+
+  </div>
+
+</header>

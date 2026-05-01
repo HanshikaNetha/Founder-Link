@@ -1,0 +1,96 @@
+<div id="dashboard">
+
+  <!-- Welcome -->
+  <div class="welcome-header">
+    <div>
+      <h2>Welcome Admin 👨‍💼</h2>
+      <p>Manage platform approvals and startups</p>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div class="stat-card" *ngFor="let stat of stats">
+      <div class="stat-icon">{{ stat.icon }}</div>
+      <div>
+        <div class="stat-value">{{ stat.value }}</div>
+        <div class="stat-label">{{ stat.label }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard Content -->
+  <div class="dashboard-grid">
+
+   
+
+    <!-- Pending Startups -->
+    <div class="card">
+      <h3>Pending Startups</h3>
+
+      <div *ngIf="pendingStartups.length === 0">
+        No pending approvals
+      </div>
+
+      <div class="startup-list">
+        <div class="startup-item" *ngFor="let s of pendingStartups">
+
+          <div>
+            <div class="startup-name">{{ s.startupName }}</div>
+            <div class="startup-stage">{{ s.industry }}</div>
+          </div>
+
+          <div style="display:flex; gap:10px; align-items:center;">
+
+            <div class="startup-status pending">
+              {{ s.approvalStatus }}
+            </div>
+
+            <button class="approve-btn"
+              (click)="approveStartup(s.startupId)">
+              Approve
+            </button>
+
+            <button class="reject-btn"
+              (click)="rejectStartup(s.startupId)">
+              Reject
+            </button>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="pagination" *ngIf="totalPages > 1">
+
+      <!-- Prev -->
+      <button 
+        (click)="prevPage()" 
+        [disabled]="currentPage === 0">
+        Prev
+      </button>
+
+      <!-- Page Numbers -->
+      <span 
+        *ngFor="let page of pages"
+        (click)="goToPage(page)"
+        [class.active]="page === currentPage"
+        class="page-number"
+      >
+        {{ page + 1 }}
+      </span>
+
+      <!-- Next -->
+      <button 
+        (click)="nextPage()" 
+        [disabled]="currentPage === totalPages - 1">
+        Next
+      </button>
+
+    </div>
+
+
+  </div>
+
+</div>

@@ -1,0 +1,37 @@
+<div id="dashboard">
+
+  <!-- Welcome -->
+  <div class="welcome-header">
+    <div>
+      <h2>Welcome Cofounder 👥</h2>
+      <p>Manage your teams and invitations</p>
+    </div>
+  </div>
+
+  
+
+  <!-- Dashboard Content -->
+  <div class="dashboard-grid">
+
+    <!-- Quick Actions -->
+    <div class="card">
+      <h3>Quick Actions</h3>
+      <div class="quick-actions">
+        <a
+          *ngFor="let action of quickActions"
+          [routerLink]="action.path"
+          class="quick-action-btn"
+        >
+          <span>{{ action.icon }}</span>
+          <span>{{ action.label }}</span>
+        </a>
+      </div>
+    </div>
+
+    
+
+    
+
+  </div>
+
+</div>

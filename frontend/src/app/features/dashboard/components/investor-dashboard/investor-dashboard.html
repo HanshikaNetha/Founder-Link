@@ -1,0 +1,198 @@
+<div id="dashboard">
+
+  <!-- Welcome -->
+  <div class="welcome-header">
+    <div>
+      <h2>Welcome Investor 💰</h2>
+      <p>Track your investments and explore startups</p>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div class="stat-card" *ngFor="let stat of stats">
+      <div class="stat-icon">{{ stat.icon }}</div>
+      <div>
+        <div class="stat-value">{{ stat.value }}</div>
+        <div class="stat-label">{{ stat.label }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard Content -->
+  <div class="dashboard-grid">
+
+    <!-- Quick Actions -->
+    <div class="card">
+      <h3>Quick Actions</h3>
+      <div class="quick-actions">
+        <a *ngFor="let action of quickActions"
+           [routerLink]="action.path"
+           class="quick-action-btn">
+          <span>{{ action.icon }}</span>
+          <span>{{ action.label }}</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- My Investments -->
+    <div class="card">
+      <div class="card-header">
+        <h3>My Investments</h3>
+
+        <button 
+          class="header-btn"
+          *ngIf="!showInvestments"
+          (click)="loadInvestments()" 
+          [disabled]="loadingInvestments"
+        >
+          <span *ngIf="!loadingInvestments">Show</span>
+          <span *ngIf="loadingInvestments">Loading...</span>
+        </button>
+      </div>
+
+      <div *ngIf="recentInvestments.length === 0">
+        No investments yet
+      </div>
+
+      <div class="startup-list">
+        <div class="startup-item" *ngFor="let inv of recentInvestments">
+          <div>
+            <div class="startup-name">Startup ID: {{ inv.startupId }}</div>
+            <div class="startup-stage">₹ {{ inv.amount }}</div>
+          </div>
+
+          <div class="startup-status">
+            {{ inv.status }}
+          </div>
+        </div>
+      </div>
+
+      <div class="pagination" *ngIf="investmentPages.length > 1">
+
+        <button 
+          (click)="prevInvestmentPage()" 
+          [disabled]="investmentPage === 0">
+          Prev
+        </button>
+
+        <span 
+          *ngFor="let page of investmentPages"
+          (click)="goToInvestmentPage(page)"
+          [class.active]="page === investmentPage"
+          class="page-number"
+        >
+          {{ page + 1 }}
+        </span>
+
+        <button 
+          (click)="nextInvestmentPage()" 
+          [disabled]="investmentPage === investmentPages.length - 1">
+          Next
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- Browse Startups -->
+    <div class="card">
+      <div class="card-header">
+        <h3>Browse Startups</h3>
+
+        <button 
+          class="header-btn"
+          *ngIf="!showStartups"
+          (click)="loadStartups()" 
+          [disabled]="loadingStartups"
+        >
+          <span *ngIf="!loadingStartups">Show</span>
+          <span *ngIf="loadingStartups">Loading...</span>
+        </button>
+      </div>
+
+      <div *ngIf="startups && startups.length === 0">
+        No startups available
+      </div>
+
+      <div class="startup-list">
+        <div class="startup-item" *ngFor="let s of startups || []">
+          <div>
+            <div class="startup-name">{{ s.startupName }}</div>
+            <div class="startup-stage">{{ s.industry }}</div>
+          </div>
+
+          <div style="display:flex; gap:10px; align-items:center;">
+            <div 
+              class="startup-status"
+              [ngClass]="{
+                approved: s.status === 'APPROVED',
+                pending: s.status === 'PENDING',
+                rejected: s.status === 'REJECTED',
+                completed: s.status === 'COMPLETED'
+              }"
+            >
+              {{ s.status }}
+            </div>
+
+            <button 
+              class="invest-btn" 
+              (click)="openInvestModal(s.startupId)"
+              [disabled]="investingStartupId === s.startupId"
+            >
+              <span *ngIf="investingStartupId === s.startupId">Investing...</span>
+              <span *ngIf="investingStartupId !== s.startupId">Invest</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="pagination" *ngIf="startupPages.length > 1">
+
+        <button 
+          (click)="prevStartupPage()" 
+          [disabled]="startupPage === 0">
+          Prev
+        </button>
+
+        <span 
+          *ngFor="let page of startupPages"
+          (click)="goToStartupPage(page)"
+          [class.active]="page === startupPage"
+          class="page-number"
+        >
+          {{ page + 1 }}
+        </span>
+
+        <button 
+          (click)="nextStartupPage()" 
+          [disabled]="startupPage === startupPages.length - 1">
+          Next
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="modal-backdrop" *ngIf="showModal">
+  <div class="modal">
+
+    <h3>Invest in Startup</h3>
+
+    <input
+      type="number"
+      [(ngModel)]="investmentAmount"
+      placeholder="Enter amount"
+    />
+
+    <div class="modal-actions">
+      <button class="btn-secondary" (click)="closeModal()">Cancel</button>
+      <button class="btn-primary" (click)="confirmInvestment()">Confirm</button>
+    </div>
+
+  </div>
+</div>

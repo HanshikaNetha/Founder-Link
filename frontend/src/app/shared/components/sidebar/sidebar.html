@@ -1,0 +1,30 @@
+<aside class="sidebar" [class.collapsed]="collapsed()">
+
+  <!-- Logo -->
+  <div class="logo">
+    <span *ngIf="!collapsed()">FounderLink</span>
+    <button (click)="toggle()">☰</button>
+  </div>
+
+  <!-- Navigation -->
+  <nav>
+    <a
+      *ngFor="let item of visibleItems()"
+      [routerLink]="item.path"
+      routerLinkActive="active"
+    >
+      <span class="icon">{{ item.icon }}</span>
+      <span *ngIf="!collapsed()" class="label">{{ item.label }}</span>
+    </a>
+  </nav>
+
+  <!-- User Info -->
+  <div class="user" *ngIf="!collapsed()">
+    <div class="avatar">{{ userInitial() }}</div>
+    <div>
+      <div class="name">{{ userName() }}</div>
+      <div class="role">{{ userRole() }}</div>
+    </div>
+  </div>
+
+</aside>

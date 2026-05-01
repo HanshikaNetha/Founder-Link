@@ -1,0 +1,125 @@
+<div class="auth-page">
+      <!-- Left branding panel -->
+      <div class="auth-brand">
+        <div class="brand-logo">FL</div>
+        <h1 class="brand-title">Join FounderLink</h1>
+        <p class="brand-sub">Start your journey. Whether you're building, investing, or co-founding — we have a place for you.</p>
+        <div class="roles-list">
+          <div class="role-card">
+            <span>🚀</span>
+            <div>
+              <strong>Founder</strong>
+              <p>Launch and manage your startup</p>
+            </div>
+          </div>
+          <div class="role-card">
+            <span>💰</span>
+            <div>
+              <strong>Investor</strong>
+              <p>Discover and fund promising startups</p>
+            </div>
+          </div>
+          <div class="role-card">
+            <span>🤝</span>
+            <div>
+              <strong>Co-Founder</strong>
+              <p>Join a team and build together</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form panel -->
+      <div class="auth-form-panel">
+        <div class="auth-card">
+          <h2 class="auth-title">Create account</h2>
+          <p class="auth-sub">Fill in the details below to get started</p>
+
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input id="reg-name" type="text" formControlName="name" class="form-control" placeholder="Jane Doe" />
+              @if (form.get('name')?.invalid && form.get('name')?.touched) {
+                <span class="form-error">Name is required</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input id="reg-email" type="email" formControlName="email" class="form-control" placeholder="you@example.com" />
+              @if (form.get('email')?.invalid && form.get('email')?.touched) {
+                <span class="form-error">Valid email is required</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <div class="input-eye-wrap">
+                <input
+                  id="reg-password"
+                  [type]="showPass() ? 'text' : 'password'"
+                  formControlName="password"
+                  class="form-control"
+                  placeholder="Min. 6 characters"
+                />
+
+                @if (errorMessage()) {
+                    <div class="form-error">{{ errorMessage() }}</div>
+                }
+                @if (successMessage()) {
+                    <div class="form-success">{{ successMessage() }}</div>
+                }
+
+                <button type="button" class="eye-btn" (click)="showPass.update(v => !v)">
+                  {{ showPass() ? '🙈' : '👁' }}
+                </button>
+              </div>
+              @if (form.get('password')?.invalid && form.get('password')?.touched) {
+                <span class="form-error">Password must be at least 6 characters</span>
+              }
+            </div>
+            <div class="form-group">
+                <label class="form-label">Confirm Password</label>
+                <input
+                    type="password"
+                    formControlName="confirmPassword"
+                    class="form-control"
+                    placeholder="Re-enter your password"
+                />
+
+                @if (form.get('confirmPassword')?.touched && form.get('confirmPassword')?.value !== form.get('password')?.value) {
+                    <span class="form-error">Passwords do not match</span>
+                }
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">I am a...</label>
+              <select id="reg-role" formControlName="role" class="form-control">
+                <option value="">Select your role</option>
+                <option value="ROLE_FOUNDER">Founder</option>
+                <option value="ROLE_INVESTOR">Investor</option>
+                <option value="ROLE_COFUNDER">Co-Founder</option>
+              </select>
+              @if (form.get('role')?.invalid && form.get('role')?.touched) {
+                <span class="form-error">Please select your role</span>
+              }
+            </div>
+
+            <button
+              id="reg-submit"
+              type="submit"
+              class="btn btn-primary btn-lg"
+              style="width:100%"
+              [disabled]="loading() || form.invalid"
+            >
+              @if (loading()) { <span class="spinner"></span> Creating account... }
+              @else { Create Account }
+            </button>
+          </form>
+
+          <p class="auth-switch">
+            Already have an account? <a routerLink="/auth/login">Sign in →</a>
+          </p>
+        </div>
+      </div>
+    </div>

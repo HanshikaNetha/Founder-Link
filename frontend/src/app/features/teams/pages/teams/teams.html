@@ -1,0 +1,85 @@
+<div id="teams">
+
+  <!-- Header -->
+  <div class="header">
+    <h2>Team Management 👥</h2>
+  </div>
+
+  <!-- Invite Section (ONLY FOUNDER) -->
+  <div class="card" *ngIf="isFounder()">
+    <h3>Invite Team Member</h3>
+
+    <div class="invite-form">
+
+       <input
+        type="number"
+        placeholder="Startup ID"
+        [(ngModel)]="startupId"
+        />
+
+      <input
+        type="number"
+        placeholder="User ID"
+        [(ngModel)]="invitedUserId"
+      />
+
+      <select [(ngModel)]="role">
+        <option value="CTO">CTO</option>
+        <option value="CPO">CPO</option>
+        <option value="MARKETING_HEAD">Marketing Head</option>
+        <option value="ENGINEERING_LEAD">Engineering Lead</option>
+      </select>
+
+      <button (click)="inviteMember()">Invite</button>
+    </div>
+  </div>
+
+  <!-- Team Members -->
+  <div class="card">
+    <h3>Team Members</h3>
+
+    <!-- 🔥 Startup Input + Load -->
+    <div class="invite-form" style="margin-bottom: 1rem;">
+        <input
+        type="number"
+        placeholder="Enter Startup ID"
+        [(ngModel)]="startupId"
+        />
+
+        <button (click)="loadTeam()">Load Team</button>
+    </div>
+
+    <!-- Empty state -->
+    <div *ngIf="teamMembers.length === 0">
+        No team members yet
+    </div>
+    
+    <!-- List -->
+    <div *ngIf="teamMembers.length > 0" class="list">
+        <div class="item" *ngFor="let member of teamMembers">
+        <div>
+            <div class="name">User ID: {{ member.userId }}</div>
+            <div class="role">{{ member.role }}</div>
+        </div>
+
+        <div class="status">Active</div>
+        </div>
+    </div>
+    </div>
+
+    <div class="card" *ngIf="!isFounder()">
+        <h3>Respond to Invitation</h3>
+
+        <div class="invite-form">
+            <input
+            type="number"
+            placeholder="Enter Invitation ID"
+            [(ngModel)]="invitationInputId"
+            />
+
+            <button class="accept-btn" (click)="acceptById()">Accept</button>
+            <button class="reject-btn" (click)="rejectById()">Reject</button>
+        </div>
+    </div>
+
+</div>

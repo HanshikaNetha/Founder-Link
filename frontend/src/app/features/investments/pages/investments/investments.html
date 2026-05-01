@@ -1,0 +1,92 @@
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h2>My Investments</h2>
+    <p>Track all your investments</p>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <input 
+      type="text"
+      placeholder="Search by Startup ID..."
+      [(ngModel)]="searchText"
+      (ngModelChange)="currentPage = 0"
+    />
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button 
+      [class.active]="activeTab === 'ALL'"
+      (click)="setTab('ALL')">All</button>
+
+    <button 
+      [class.active]="activeTab === 'PENDING'"
+      (click)="setTab('PENDING')">Pending</button>
+
+    <button 
+      [class.active]="activeTab === 'APPROVED'"
+      (click)="setTab('APPROVED')">Approved</button>
+
+    <button 
+      [class.active]="activeTab === 'REJECTED'"
+      (click)="setTab('REJECTED')">Rejected</button>
+  </div>
+
+  <!-- List -->
+  <div class="list">
+
+    <div *ngIf="filteredInvestments.length === 0">
+      No investments found
+    </div>
+
+    <div 
+      class="card"
+      *ngFor="let inv of filteredInvestments"
+    >
+      <div>
+        <strong>Startup ID:</strong> {{ inv.startupId }}
+      </div>
+
+      <div>
+        <strong>Amount:</strong> ₹ {{ inv.amount }}
+      </div>
+
+      <div 
+        class="status"
+        [ngClass]="inv.status.toLowerCase()"
+      >
+        {{ inv.status }}
+      </div>
+    </div>
+
+  </div>
+
+  <div class="pagination" *ngIf="pages.length > 1">
+
+    <button 
+      (click)="prevPage()" 
+      [disabled]="currentPage === 0">
+      Prev
+    </button>
+
+    <span 
+      *ngFor="let page of pages"
+      (click)="goToPage(page)"
+      [class.active]="page === currentPage"
+      class="page-number"
+    >
+      {{ page + 1 }}
+    </span>
+
+    <button 
+      (click)="nextPage()" 
+      [disabled]="currentPage === pages.length - 1">
+      Next
+    </button>
+
+  </div>
+
+</div>

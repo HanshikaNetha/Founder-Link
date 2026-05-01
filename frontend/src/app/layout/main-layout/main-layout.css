@@ -1,0 +1,11 @@
+.layout {
+  display: flex;
+}
+
+.content {
+  margin-left: var(--sidebar-width);
+  margin-top: var(--navbar-height);
+  padding: 1.5rem;
+  width: 100%;
+  min-height: calc(100vh - var(--navbar-height));
+}

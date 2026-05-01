@@ -1,0 +1,207 @@
+<!-- <div class="auth-page">
+      <div class="auth-brand">
+        <div class="brand-logo">FL</div>
+        <h1 class="brand-title">FounderLink</h1>
+        <p class="brand-sub">Connecting Founders, Investors &amp; Co-founders</p>
+        <div class="brand-features">
+          <div class="feature-item">🚀 Launch your startup</div>
+          <div class="feature-item">💰 Connect with investors</div>
+          <div class="feature-item">👥 Build your team</div>
+        </div>
+      </div>
+
+      <div class="auth-form-panel">
+        <div class="auth-card">
+          <h2 class="auth-title">Welcome back</h2>
+          <p class="auth-sub">Sign in to your FounderLink account</p>
+
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input
+                id="login-email"
+                type="email"
+                formControlName="email"
+                class="form-control"
+                placeholder="you@example.com"
+                autocomplete="email"
+              />
+              @if (form.get('email')?.invalid && form.get('email')?.touched) {
+                <span class="form-error">Valid email is required</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <div class="input-eye-wrap">
+                <input
+                  id="login-password"
+                  [type]="showPass() ? 'text' : 'password'"
+                  formControlName="password"
+                  class="form-control"
+                  placeholder="••••••••"
+                  autocomplete="current-password"
+                />
+                <div *ngIf="errorMessage()" class="form-error">
+                    {{ errorMessage() }}
+                </div>
+                <button type="button" class="eye-btn" (click)="showPass.update(v => !v)">
+                  {{ showPass() ? '🙈' : '👁' }}
+                </button>
+              </div>
+              @if (form.get('password')?.invalid && form.get('password')?.touched) {
+                <span class="form-error">Password is required</span>
+              }
+            </div>
+
+            <button
+              id="login-submit"
+              type="submit"
+              class="btn btn-primary btn-lg"
+              style="width:100%"
+              [disabled]="loading() || form.invalid"
+            >
+              @if (loading()) { <span class="spinner"></span> Signing in... }
+              @else { Sign In }
+            </button>
+          </form>
+
+          <p class="auth-switch">
+            Don't have an account?
+            <a routerLink="/auth/register">Create one →</a>
+          </p>
+
+        </div>
+      </div>
+    </div> -->
+
+
+
+
+
+
+
+<div class="auth-page">
+
+  <!-- Left panel — branding -->
+  <div class="auth-brand">
+    <div class="brand-header">
+      <div class="brand-logo">
+        <span>F</span>
+      </div>
+      <span class="brand-name">Founder<strong>Link</strong></span>
+    </div>
+
+    <div class="brand-body">
+      <h1 class="brand-headline">
+        Build the future.<br>
+        <span class="brand-accent">Together.</span>
+      </h1>
+      <p class="brand-sub">
+        Join thousands of founders, investors and co-founders<br>
+        building the next generation of companies.
+      </p>
+
+      <div class="brand-features">
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <span>Curated startup network</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          </div>
+          <span>Active investor matching</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <span>Co-founder discovery</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="brand-footer">© 2026 FounderLink. All rights reserved.</p>
+  </div>
+
+  <!-- Right panel — form -->
+  <div class="auth-form-panel">
+    <div class="auth-card">
+      <div class="auth-card-header">
+        <h2 class="auth-title">Welcome back</h2>
+        <p class="auth-sub">Sign in to your FounderLink account.</p>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+
+        <div class="form-group">
+          <label class="form-label" for="login-email">Email</label>
+          <div class="input-wrap">
+            <span class="input-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            </span>
+            <input
+              id="login-email"
+              type="email"
+              formControlName="email"
+              class="form-control"
+              placeholder="you@startup.com"
+              autocomplete="email"
+            />
+          </div>
+          @if (form.get('email')?.invalid && form.get('email')?.touched) {
+            <span class="form-error">Valid email is required</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="login-password">Password</label>
+          <div class="input-wrap input-eye-wrap">
+            <span class="input-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </span>
+            <input
+              id="login-password"
+              [type]="showPass() ? 'text' : 'password'"
+              formControlName="password"
+              class="form-control"
+              placeholder="••••••••"
+              autocomplete="current-password"
+            />
+            <button type="button" class="eye-btn" (click)="showPass.update(v => !v)" aria-label="Toggle password visibility">
+              <svg *ngIf="!showPass()" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg *ngIf="showPass()" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            </button>
+          </div>
+          @if (form.get('password')?.invalid && form.get('password')?.touched) {
+            <span class="form-error">Password must be at least 6 characters</span>
+          }
+        </div>
+
+        <div *ngIf="errorMessage()" class="error-banner">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          {{ errorMessage() }}
+        </div>
+
+        <button
+          id="login-submit"
+          type="submit"
+          class="btn-submit"
+          [disabled]="loading() || form.invalid"
+        >
+          <span *ngIf="loading()" class="spinner"></span>
+          <span>{{ loading() ? 'Signing in...' : 'Sign in' }}</span>
+        </button>
+      </form>
+
+      <p class="auth-switch">
+        Don't have an account?
+        <a routerLink="/auth/register">Create one</a>
+      </p>
+    </div>
+  </div>
+
+</div>

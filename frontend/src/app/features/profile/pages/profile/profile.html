@@ -1,0 +1,81 @@
+<div class="profile-page">
+
+  <!-- Loading -->
+  <div class="loading-state" *ngIf="loading()">
+    <div class="loader"></div>
+    <p>Loading profile...</p>
+  </div>
+
+  <!-- Profile -->
+  <div *ngIf="!loading() && user() as u">
+
+    <!-- HEADER -->
+    <div class="profile-header">
+      <div class="profile-avatar-lg">
+        {{ u.name ? u.name.charAt(0).toUpperCase() : 'U' }}
+      </div>
+
+      <div class="profile-headline">
+        <h1>{{ u.name || 'User' }}</h1>
+        <p class="profile-email">{{ u.email }}</p>
+        <span class="role-badge">{{ u.role }}</span>
+      </div>
+
+      <button class="edit-toggle-btn" (click)="goToEdit()">
+        ✏️ Edit Profile
+      </button>
+    </div>
+
+    <!-- GRID -->
+    <div class="profile-grid">
+
+      <div class="profile-card">
+        <h3 class="card-label">User ID</h3>
+        <p class="card-value">{{ u.userId }}</p>
+      </div>
+
+      <div class="profile-card">
+        <h3 class="card-label">Email</h3>
+        <p class="card-value">{{ u.email }}</p>
+      </div>
+
+      <div class="profile-card">
+        <h3 class="card-label">Role</h3>
+        <p class="card-value">{{ u.role }}</p>
+      </div>
+
+      <div class="profile-card">
+        <h3 class="card-label">Bio</h3>
+        <p class="card-value">{{ u.bio || 'Not provided' }}</p>
+      </div>
+
+      <div class="profile-card">
+        <h3 class="card-label">Skills</h3>
+        <p class="card-value">{{ u.skills || 'Not provided' }}</p>
+      </div>
+
+      <div class="profile-card">
+        <h3 class="card-label">Experience</h3>
+        <p class="card-value">{{ u.experience || 'Not provided' }}</p>
+      </div>
+
+      <div class="profile-card">
+        <h3 class="card-label">Company</h3>
+        <p class="card-value">{{ u.companyName || 'Not provided' }}</p>
+      </div>
+
+      <div class="profile-card">
+        <h3 class="card-label">Location</h3>
+        <p class="card-value">{{ u.location || 'Not provided' }}</p>
+      </div>
+
+      <div class="profile-card">
+        <h3 class="card-label">Portfolio</h3>
+        <p class="card-value">{{ u.portfolioLinks || 'Not provided' }}</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
