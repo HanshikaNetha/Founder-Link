@@ -20,14 +20,12 @@ export class InvestmentService {
     });
   }
 
-  // ✅ GET MY INVESTMENTS
   getMyInvestments(): Observable<any> {
     return this.http.get(`/api/investments/getMyInvestments`, {
       headers: this.getHeaders(),
     });
   }
 
-  // ✅ CREATE INVESTMENT
   createInvestment(data: any): Observable<any> {
     return this.http.post(
       `/api/investments/createInvestment`,

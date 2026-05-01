@@ -109,18 +109,18 @@ export class Startups {
   }
 
   approve(investmentId: number) {
-    console.log("APPROVE CLICKED:", investmentId); // 🔥 ADD
+    console.log("APPROVE CLICKED:", investmentId); 
 
     this.processingId = investmentId;
 
     this.investmentService.approveInvestment(investmentId).subscribe({
       next: () => {
-        console.log("APPROVED SUCCESS"); // 🔥 ADD
+        console.log("APPROVED SUCCESS"); 
         this.updateStatus(investmentId, 'APPROVED');
         this.processingId = null;
       },
       error: (err) => {
-        console.error("APPROVE ERROR:", err); // 🔥 ADD
+        console.error("APPROVE ERROR:", err); 
         this.processingId = null;
       }
     });
@@ -162,7 +162,6 @@ export class Startups {
 
     this.pages = Array.from({ length: totalPages }, (_, i) => i);
 
-    // 🔥 reset if current page goes out of range
     if (this.currentPage >= totalPages) {
       this.currentPage = 0;
     }

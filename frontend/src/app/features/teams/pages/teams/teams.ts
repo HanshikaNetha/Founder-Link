@@ -24,7 +24,6 @@ export class Teams {
 
   teamMembers: any[] = [];
 
-  // invite form
   invitedUserId: number | null = null;
   role: string = 'CTO';
 

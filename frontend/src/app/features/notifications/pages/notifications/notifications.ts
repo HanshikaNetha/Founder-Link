@@ -44,11 +44,11 @@ export class Notifications implements OnInit
     this.notificationService.markAsRead(notificationId)
       .subscribe({
         next: (res) => {
-          console.log("MARK READ SUCCESS", res); // 🔥 add this
+          console.log("MARK READ SUCCESS", res); 
           this.loadNotifications();
         },
         error: (err) => {
-          console.error("MARK READ ERROR", err); // 🔥 add this
+          console.error("MARK READ ERROR", err); 
         }
       });
   }

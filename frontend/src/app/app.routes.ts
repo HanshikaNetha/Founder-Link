@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth-guard';
 import { MainLayout } from './layout/main-layout/main-layout';
+import { roleGuard } from './core/guards/role-guard';
 
 export const routes: Routes = [
   {
@@ -28,6 +29,8 @@ export const routes: Routes = [
       },
       {
         path: 'startups/create',   
+        canActivate: [authGuard, roleGuard],
+        data: { roles: ['ROLE_FOUNDER'] },
         loadComponent: () =>
           import('./features/startups/pages/create-startup/create-startup')
             .then(m => m.CreateStartup)
@@ -40,12 +43,16 @@ export const routes: Routes = [
       },
       {
         path: 'investments',
+        canActivate: [authGuard, roleGuard],
+        data: { roles: ['ROLE_INVESTOR'] },
         loadComponent: () =>
           import('./features/investments/pages/investments/investments')
             .then(m => m.Investments)
       },
       {
         path: 'messages',
+        canActivate: [authGuard, roleGuard],
+        data: { roles: ['ROLE_FOUNDER', 'ROLE_INVESTOR', 'ROLE_COFUNDER'] },
         loadComponent: () =>
           import('./features/messages/pages/messages/messages')
             .then(m => m.Messages)
@@ -53,6 +60,8 @@ export const routes: Routes = [
 
       {
         path: 'notifications',
+        canActivate: [authGuard, roleGuard],
+        data: { roles: ['ROLE_FOUNDER', 'ROLE_INVESTOR', 'ROLE_COFUNDER'] },
         loadComponent: () =>
           import('./features/notifications/pages/notifications/notifications')
             .then(m => m.Notifications)
