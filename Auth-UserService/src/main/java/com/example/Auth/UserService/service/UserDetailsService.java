@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,17 +26,21 @@ public class UserDetailsService {
 
     public UserResponse updateUserProfile(Long userId, UserUpdateRequest request) {
 
-        UserDetails userDetails = userDetailsRepository.findByUserId(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+        Optional<UserDetails> userDetails = userDetailsRepository.findByUserId(userId);
+        userDetails.orElseThrow(() -> new UserNotFoundException("User not found"));
 
-        userDetails.setSkills(request.getSkills());
-        userDetails.setExperience(request.getExperience());
-        userDetails.setBio(request.getBio());
-        userDetails.setPortfolioLinks(request.getPortfolioLinks());
-        userDetails.setLocation(request.getLocation());
-        userDetails.setCompanyName(request.getCompanyName());
-        userDetails.setUpdatedAt(LocalDateTime.now());
 
-        UserDetails updatedUser = userDetailsRepository.save(userDetails);
+
+
+        userDetails.get().setSkills(request.getSkills());
+        userDetails.get().setExperience(request.getExperience());
+        userDetails.get().setBio(request.getBio());
+        userDetails.get().setPortfolioLinks(request.getPortfolioLinks());
+        userDetails.get().setLocation(request.getLocation());
+        userDetails.get().setCompanyName(request.getCompanyName());
+        userDetails.get().setUpdatedAt(LocalDateTime.now());
+
+        UserDetails updatedUser = userDetailsRepository.save(userDetails.get());
         return modelMapper.map(updatedUser, UserResponse.class);
     }
     public UserResponse getUserById(Long userId) {
